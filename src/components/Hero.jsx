@@ -133,7 +133,7 @@ function Hero({ filterType = 'all' }) {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="relative h-[45vh] md:h-[85vh] w-full">
+      <div className="relative h-[55vh] sm:h-[65vh] md:h-[75vh] lg:h-[85vh] w-full">
 
         {/* Background slides */}
         {filteredBanners.map((banner, idx) => (
@@ -160,9 +160,9 @@ function Hero({ filterType = 'all' }) {
               }}
             />
 
-            {/* Gradient overlays - dari kode lama */}
-            <div className="absolute inset-0 bg-gradient-to-t from-chill-bg via-chill-bg/20 to-transparent md:via-chill-bg/30" />
-            <div className="absolute inset-0 bg-gradient-to-r from-chill-bg/60 via-chill-bg/10 to-transparent hidden md:block" />
+            {/* Gradient overlays */}
+            <div className="absolute inset-0 bg-gradient-to-t from-chill-bg via-chill-bg/40 to-chill-bg/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-chill-bg/80 via-chill-bg/30 to-transparent" />
           </div>
         ))}
 
@@ -191,115 +191,95 @@ function Hero({ filterType = 'all' }) {
           </>
         )}
 
-        {/* KONTEN - Style dari kode lama */}
-        <div className="relative h-full flex flex-col justify-end pb-5 md:pb-20 px-4 md:px-10 max-w-3xl animate-fade-up">
+        {/* KONTEN - UNIFIED RESPONSIVE (tampil di semua device) */}
+        <div className="relative h-full flex flex-col justify-end pb-6 sm:pb-8 md:pb-16 lg:pb-20 px-4 sm:px-6 md:px-10 max-w-3xl animate-fade-up">
 
-          {/* NOTIFICATION BADGE - dinamis per banner */}
+          {/* NOTIFICATION BADGE */}
           {notificationBadge && (
             <div
               key={`badge-${currentIndex}`}
-              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded ${notificationBadge.bgColor} ${notificationBadge.textColor} text-[10px] md:text-xs font-bold mb-2 w-fit animate-fade-in shadow-lg`}
+              className={`inline-flex items-center gap-1 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded ${notificationBadge.bgColor} ${notificationBadge.textColor} text-[9px] sm:text-[10px] md:text-xs font-bold mb-1.5 sm:mb-2 md:mb-3 w-fit animate-fade-in shadow-lg`}
             >
               <span>{notificationBadge.label}</span>
             </div>
           )}
 
           {/* Genre Label */}
-          <span className="inline-flex items-center gap-2 text-[10px] md:text-xs font-semibold uppercase tracking-widest text-white/80 mb-1.5 md:mb-3">
-            <span className="w-1 h-3 md:h-4 bg-white rounded-full" />
+          <span className="inline-flex items-center gap-1.5 sm:gap-2 text-[9px] sm:text-[10px] md:text-xs font-semibold uppercase tracking-widest text-white/80 mb-1 sm:mb-1.5 md:mb-3">
+            <span className="w-0.5 sm:w-1 h-2.5 sm:h-3 md:h-4 bg-white rounded-full" />
             {currentBanner.isSeries ? 'Series Original' : 'Film Original'}
           </span>
 
-          {/* Title */}
+          {/* Title - RESPONSIVE SIZING */}
           <h1
             key={`title-${currentIndex}`}
-            className="text-xl md:text-6xl font-bold mb-2 md:mb-3 leading-tight text-white animate-fade-in drop-shadow-2xl"
+            className="text-lg sm:text-2xl md:text-4xl lg:text-6xl font-bold mb-1.5 sm:mb-2 md:mb-3 leading-tight text-white animate-fade-in drop-shadow-2xl"
           >
             {currentBanner.title}
           </h1>
 
-          {/* Deskripsi - hanya tampil di desktop */}
+          {/* Deskripsi - TAMPIL DI SEMUA DEVICE */}
           <p
             key={`desc-${currentIndex}`}
-            className="hidden md:block max-w-xl text-base text-white/80 mb-6 line-clamp-3 animate-fade-in"
+            className="text-[11px] sm:text-xs md:text-sm lg:text-base text-white/80 mb-2 sm:mb-3 md:mb-4 lg:mb-6 line-clamp-2 sm:line-clamp-3 max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl animate-fade-in leading-snug sm:leading-normal"
           >
             {currentBanner.description}
           </p>
 
-          {/* MOBILE: 1 tombol Mulai + icon Selengkapnya + tag genre */}
-          <div className="flex md:hidden items-center gap-2">
-            {/* Tombol Mulai - utama */}
-            <button className="px-5 py-2 rounded-full bg-white/15 backdrop-blur-md text-white text-sm font-semibold flex items-center gap-1.5 border border-white/20 hover:bg-white/25 active:scale-95 transition-all">
-              <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+          {/* Meta Info - hanya tampil di tablet ke atas */}
+          <div className="hidden sm:flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs md:text-sm text-white/70 mb-3 md:mb-4">
+            <span className="text-yellow-400">⭐ 4.7</span>
+            <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-white/10 border border-white/15">
+              {currentBanner.isSeries ? 'Series' : 'Film'}
+            </span>
+            <span className="px-1.5 sm:px-2 py-0.5 rounded-full bg-white/10 border border-white/15">
+              Populer
+            </span>
+          </div>
+
+          {/* Tombol Aksi - RESPONSIVE, SEMUA TETAP TAMPIL */}
+          <div
+            key={`btns-${currentIndex}`}
+            className="flex flex-row items-center gap-1.5 sm:gap-2 md:gap-3 animate-fade-in flex-wrap"
+          >
+            {/* Tombol Mulai */}
+            <button className="px-3 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-full bg-white text-black font-semibold text-[11px] sm:text-xs md:text-sm lg:text-base flex items-center gap-1 sm:gap-1.5 md:gap-2 hover:bg-gray-200 active:scale-95 transition-all shadow-lg">
+              <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
               </svg>
               Mulai
             </button>
 
-            {/* Icon Selengkapnya (info) - circular */}
-            <button className="w-9 h-9 shrink-0 rounded-full bg-black/40 backdrop-blur-md border border-white/15 flex items-center justify-center hover:bg-black/60 active:scale-95 transition-all">
-              <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            {/* Tombol Selengkapnya */}
+            <button className="px-3 sm:px-5 md:px-6 lg:px-7 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-full bg-white/10 backdrop-blur text-white font-semibold text-[11px] sm:text-xs md:text-sm lg:text-base flex items-center gap-1 sm:gap-1.5 md:gap-2 border border-white/20 hover:bg-white/20 active:scale-95 transition-all">
+              <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 md:w-4 md:h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" />
                 <line x1="12" y1="16" x2="12" y2="12" />
                 <line x1="12" y1="8" x2="12.01" y2="8" />
               </svg>
+              Selengkapnya
             </button>
 
-            {/* Age rating pill */}
-            <span className="px-2.5 py-1 rounded-full bg-white/10 text-white text-[11px] border border-white/15">
+            {/* Age Rating Badge */}
+            <span className="px-2 sm:px-2.5 md:px-3 py-1 sm:py-1.5 md:py-2 rounded-full bg-white/10 backdrop-blur-md text-white text-[9px] sm:text-[10px] md:text-xs font-semibold border border-white/20">
               {currentBanner.ageRating}
             </span>
-          </div>
-
-          {/* DESKTOP: 2 tombol full + meta info */}
-          <div className="hidden md:flex flex-col">
-            {/* Meta info */}
-            <div className="flex flex-wrap items-center gap-2 text-sm text-white/70 mb-4">
-              <span className="text-yellow-400">⭐ 4.7</span>
-              <span className="px-2 py-0.5 rounded-full bg-white/10 border border-white/15">
-                {currentBanner.isSeries ? 'Series' : 'Film'}
-              </span>
-              <span className="px-2 py-0.5 rounded-full bg-white/10 border border-white/15">
-                Populer
-              </span>
-              <span className="px-1.5 py-0.5 text-[10px] border border-white/30 rounded">
-                {currentBanner.ageRating}
-              </span>
-            </div>
-
-            {/* Buttons desktop */}
-            <div className="flex flex-row gap-3">
-              <button className="px-7 py-3 rounded-full bg-white text-black font-semibold flex items-center gap-2 hover:bg-gray-200 active:scale-95 transition-all">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                Mulai
-              </button>
-              <button className="px-7 py-3 rounded-full bg-white/10 backdrop-blur text-white font-semibold flex items-center gap-2 border border-white/20 hover:bg-white/20 active:scale-95 transition-all">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="12" y1="16" x2="12" y2="12" />
-                  <line x1="12" y1="8" x2="12.01" y2="8" />
-                </svg>
-                Selengkapnya
-              </button>
-            </div>
           </div>
         </div>
 
         {/* Tombol mute/unmute */}
         <button
           onClick={() => setIsMuted(!isMuted)}
-          className="absolute bottom-5 md:bottom-20 right-4 md:right-10 z-20 w-9 h-9 md:w-11 md:h-11 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center active:scale-95 transition-all ring-1 ring-white/30"
+          className="absolute bottom-6 sm:bottom-8 md:bottom-16 lg:bottom-20 right-4 sm:right-6 md:right-10 z-20 w-8 h-8 sm:w-9 sm:h-9 md:w-11 md:h-11 rounded-full bg-black/50 hover:bg-black/80 backdrop-blur-md text-white flex items-center justify-center active:scale-95 transition-all ring-1 ring-white/30"
           aria-label={isMuted ? 'Aktifkan suara' : 'Matikan suara'}
         >
           {isMuted ? (
-            <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M17 9l4 4m0-4l-4 4" />
             </svg>
           ) : (
-            <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072M17.95 6.05a8 8 0 010 11.9" />
             </svg>
