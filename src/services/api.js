@@ -2,12 +2,13 @@ import axios from 'axios'
 
 // Buat Axios instance dengan base URL dari .env
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL: import.meta.env.VITE_API_URL || 'https://6a4389786dba791499aae705.mockapi.io',
   headers: {
     'Content-Type': 'application/json',
   },
-  timeout: 10000, // timeout 10 detik
+  timeout: 10000,
 })
+
 
 // INTERCEPTOR REQUEST - jalan sebelum request dikirim
 api.interceptors.request.use(
